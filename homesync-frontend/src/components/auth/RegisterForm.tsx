@@ -55,7 +55,7 @@ export function RegisterForm() {
             router.push('/dashboard');
           }
 
-          return <b>Welcome to Fixora!</b>;
+          return <b>Welcome to HomeSync!</b>;
         },
         error: (err) => {
           const errorMessage = err instanceof Error && 'response' in err &&

@@ -19,7 +19,7 @@ export default function LoginPage() {
                 <span className="text-white font-bold text-xl">F</span>
               </div>
               <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
-              <p className="text-gray-400">Sign in to your Fixora account</p>
+              <p className="text-gray-400">Sign in to your HomeSync account</p>
             </div>
 
             {/* Login Form Card */}

@@ -61,14 +61,14 @@ app.use(passport.session());
 // Swagger API Documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
   explorer: true,
-  customSiteTitle: 'Fixora API Documentation',
+  customSiteTitle: 'HomeSync API Documentation',
   customCss: '.swagger-ui .topbar { display: none }',
 }));
 
 // API Welcome Route
 app.get('/', (req, res) => {
   res.json({
-    message: 'Welcome to Fixora API',
+    message: 'Welcome to HomeSync API',
     version: '1.0.0',
     documentation: `${req.protocol}://${req.get('host')}/api-docs`,
     endpoints: {

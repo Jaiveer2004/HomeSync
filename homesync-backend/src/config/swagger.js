@@ -4,12 +4,12 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Fixora API',
+      title: 'HomeSync API',
       version: '1.0.0',
       description: `
-# Fixora - Home Services Platform API
+# HomeSync - Home Services Platform API
 
-Welcome to the Fixora API documentation. Fixora is a comprehensive home services marketplace that connects customers with skilled service partners.
+Welcome to the HomeSync API documentation. HomeSync is a comprehensive home services marketplace that connects customers with skilled service partners.
 
 ## Features
 
@@ -63,8 +63,8 @@ Common HTTP status codes:
 - 500: Internal Server Error
       `,
       contact: {
-        name: 'Fixora Team',
-        email: 'support@fixora.com'
+        name: 'HomeSync Team',
+        email: 'support@homesync.com'
       },
     },
     servers: [
@@ -73,7 +73,7 @@ Common HTTP status codes:
         description: 'Development server',
       },
       {
-        url: 'https://api.fixora.com',
+        url: 'https://api.homesync.com',
         description: 'Production server',
       },
     ],

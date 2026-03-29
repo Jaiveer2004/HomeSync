@@ -209,7 +209,7 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: order.amount,
         currency: order.currency,
-        name: "Fixora",
+        name: "HomeSync",
         description: `Payment for ${service.name}`,
         order_id: order.id,
         handler: async function (response: RazorpayResponse) {

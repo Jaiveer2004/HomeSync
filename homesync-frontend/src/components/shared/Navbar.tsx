@@ -52,7 +52,7 @@ export function Navbar() {
           <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
             <span className="text-white font-bold text-sm">F</span>
           </div>
-          Fixora
+          HomeSync
         </Link>
 
         {/* Desktop Navigation */}

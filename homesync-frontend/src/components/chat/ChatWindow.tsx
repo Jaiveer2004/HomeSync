@@ -14,7 +14,7 @@ interface ChatWindowProps {
 
 export function ChatWindow({ onClose }: ChatWindowProps) {
   const [messages, setMessage] = useState<Message[]>([
-    { sender: 'ai', text: 'Hi! I\'m your Fixora AI assistant. Ask me about any home services you need! 😊' }
+    { sender: 'ai', text: 'Hi! I\'m your HomeSync AI assistant. Ask me about any home services you need! 😊' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -62,7 +62,7 @@ export function ChatWindow({ onClose }: ChatWindowProps) {
             <span className="text-blue-600 font-bold text-sm">AI</span>
           </div>
           <div>
-            <h3 className="text-white font-semibold">Fixora Assistant</h3>
+            <h3 className="text-white font-semibold">HomeSync Assistant</h3>
             <p className="text-blue-100 text-xs">Online • Ready to help</p>
           </div>
         </div>

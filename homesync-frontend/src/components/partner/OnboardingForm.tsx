@@ -70,7 +70,7 @@ export function OnboardingForm() {
           }
           
           router.push('/dashboard');
-          return <b>Welcome to Fixora! Your partner profile is now active.</b>;
+          return <b>Welcome to HomeSync! Your partner profile is now active.</b>;
         },
         error: (err) => <b>{err.response?.data?.message || "Profile setup failed!"}</b>,
       });

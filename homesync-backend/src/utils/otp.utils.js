@@ -155,7 +155,7 @@ const sendOTPEmail = async (email, plainOTP, fullName, type = 'login', device = 
     const mailOptions = {
       from: process.env.EMAIL_FROM,
       to: email,
-      subject: `Your Fixora Login OTP - ${plainOTP}`,
+      subject: `Your HomeSync Login OTP - ${plainOTP}`,
       html,
     };
 
@@ -186,7 +186,7 @@ const sendVerificationEmail = async (email, verificationCode, verificationToken,
     const mailOptions = {
       from: process.env.EMAIL_FROM,
       to: email,
-      subject: 'Verify Your Fixora Account',
+      subject: 'Verify Your HomeSync Account',
       html,
     };
 

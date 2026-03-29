@@ -112,7 +112,7 @@ export function CreateServiceForm() {
     <div className="bg-gray-800 rounded-2xl p-8 border border-gray-700 max-w-2xl mx-auto">
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-white mb-2">Create New Service</h2>
-        <p className="text-gray-400">Offer your expertise to customers on Fixora</p>
+        <p className="text-gray-400">Offer your expertise to customers on HomeSync</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">

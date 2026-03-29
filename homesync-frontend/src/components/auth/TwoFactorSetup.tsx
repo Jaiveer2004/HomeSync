@@ -93,7 +93,7 @@ export default function TwoFactorSetup({ onSuccess }: TwoFactorSetupProps) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "fixora-2fa-backup-codes.txt";
+    a.download = "homesync-2fa-backup-codes.txt";
     a.click();
     URL.revokeObjectURL(url);
   };

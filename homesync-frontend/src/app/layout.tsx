@@ -4,7 +4,7 @@ import { Toaster } from "react-hot-toast";
 import 'react-loading-skeleton/dist/skeleton.css';
 
 export const metadata: Metadata = {
-  title: "Fixora - Home Services Platform",
+  title: "HomeSync - Home Services Platform",
   description: "Book trusted home service professionals for all your needs",
 };
 

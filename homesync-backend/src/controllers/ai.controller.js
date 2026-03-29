@@ -19,8 +19,8 @@ const generateChatResponse = async (req, res) => {
     });
 
     const completion = await openrouter.chat.completions.create({
-      // Choose a free model from the OpenRouter models page
-      model: "meta-llama/llama-3.2-3b-instruct:free",
+      // Choose a reliable model from OpenRouter
+      model: "google/gemini-2.5-flash",
       messages: [
         {
           role: "system",
@@ -45,8 +45,14 @@ const generateChatResponse = async (req, res) => {
   } catch (error) {
     console.error("OpenRouter API error:", error);
     console.error("Error details:", error.response?.data || error.message);
-    res.status(500).json({ 
-      message: "Failed to get response from AI", 
+    
+    // Check if it's a rate limit error from OpenRouter's free tier
+    const isRateLimit = error.status === 429 || error.message.includes('429');
+    
+    res.status(isRateLimit ? 429 : 500).json({ 
+      message: isRateLimit 
+        ? "AI is currently busy due to free tier rate limits. Please try again in a few moments." 
+        : "Failed to get response from AI", 
       error: error.message 
     });
   }

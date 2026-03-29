@@ -60,5 +60,3 @@ const generateChatResponse = async (req, res) => {
 };
 
 module.exports = { generateChatResponse };
-
-module.exports = { generateChatResponse };

@@ -11,10 +11,10 @@ export function Loader({ onLoadingComplete }: LoaderProps) {
   const [currentStep, setCurrentStep] = useState(0);
 
   const loadingSteps = [
-    "Loading",
-    "Connecting", 
-    "Preparing",
-    "Ready"
+    "Waking up the server...",
+    "Connecting...", 
+    "Preparing your view...",
+    "Almost ready..."
   ];
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export function Loader({ onLoadingComplete }: LoaderProps) {
           clearInterval(timer);
           setTimeout(() => {
             onLoadingComplete();
-          }, 300);
+          }, 350);
           return 100;
         }
         return newProgress;
@@ -42,95 +42,70 @@ export function Loader({ onLoadingComplete }: LoaderProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-50">
-      <div className="text-center">
-        {/* Logo */}
-        <div className="mb-12">
-          <div className="flex items-center justify-center mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-slate-900 font-bold text-lg">F</span>
-            </div>
-          </div>
-          <h1 className="text-2xl font-light text-slate-900 tracking-wide">
-            HomeSync
-          </h1>
-        </div>
+      <div className="relative w-full max-w-sm p-8 text-center flex flex-col items-center">
+        
+        {/* Animated Glow behind Logo */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
 
-        {/* Loading Animation */}
-        <div className="mb-8">
-          <div className="relative w-32 h-32 mx-auto">
-            {/* Background Circle */}
-            <div className="absolute inset-0 rounded-full border border-slate-200"></div>
-            
-            {/* Progress Circle */}
-            <svg className="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-              <circle
-                cx="50"
-                cy="50"
-                r="45"
-                stroke="currentColor"
-                strokeWidth="1"
-                fill="none"
-                className="text-gray-700"
-              />
-              <circle
-                cx="50"
-                cy="50"
-                r="45"
-                stroke="currentColor"
-                strokeWidth="1"
-                fill="none"
-                strokeLinecap="round"
-                className="text-blue-500 transition-all duration-300 ease-out"
-                style={{
-                  strokeDasharray: `${2 * Math.PI * 45}`,
-                  strokeDashoffset: `${2 * Math.PI * 45 * (1 - progress / 100)}`,
-                }}
-              />
+        {/* Central Logo Container */}
+        <div className="relative mb-6 mt-8 flex items-center justify-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl shadow-blue-500/40 relative z-10 transition-transform duration-500 hover:scale-105">
+            {/* SVG Home Icon */}
+            <svg 
+              className="w-8 h-8 text-white" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
             </svg>
-
-            {/* Center Percentage */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-sm font-medium text-slate-900">
-                {Math.round(progress)}%
-              </span>
-            </div>
           </div>
+          
+          {/* Circular SVG Progress Ring wrapped around the logo */}
+          <svg className="absolute w-24 h-24 transform -rotate-90 z-0" viewBox="0 0 100 100">
+            <circle
+              cx="50"
+              cy="50"
+              r="46"
+              stroke="currentColor"
+              strokeWidth="2"
+              fill="none"
+              className="text-slate-200"
+            />
+            <circle
+              cx="50"
+              cy="50"
+              r="46"
+              stroke="currentColor"
+              strokeWidth="4"
+              fill="none"
+              strokeLinecap="round"
+              className="text-blue-500 transition-all duration-300 ease-out opacity-90"
+              style={{
+                strokeDasharray: `${2 * Math.PI * 46}`,
+                strokeDashoffset: `${2 * Math.PI * 46 * (1 - progress / 100)}`,
+              }}
+            />
+          </svg>
         </div>
 
-        {/* Loading Text */}
-        <div className="mb-8">
-          <p className="text-sm font-medium text-slate-600 mb-2">
+        <h1 className="text-2xl font-bold text-slate-800 tracking-tight mt-4">
+          HomeSync
+        </h1>
+
+        {/* Loading Text & Subtle dots */}
+        <div className="h-10 mt-2 flex flex-col items-center justify-center space-y-3">
+          <p className="text-sm font-medium text-slate-500 animate-pulse transition-opacity duration-300">
             {loadingSteps[currentStep]}
           </p>
-          
-          {/* Progress Bar */}
-          <div className="w-48 mx-auto">
-            <div className="w-full bg-slate-100 rounded-full h-0.5">
-              <div 
-                className="h-full bg-blue-500 rounded-full transition-all duration-300 ease-out"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
+          <div className="flex space-x-1.5 align-middle">
+            <div className="w-1.5 h-1.5 bg-blue-500/80 rounded-full animate-bounce"></div>
+            <div className="w-1.5 h-1.5 bg-blue-500/80 rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></div>
+            <div className="w-1.5 h-1.5 bg-blue-500/80 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div>
           </div>
         </div>
 
-        {/* Minimal Dots */}
-        <div className="flex justify-center space-x-1">
-          <div className="w-1 h-1 bg-blue-400 rounded-full animate-pulse"></div>
-          <div className="w-1 h-1 bg-blue-400 rounded-full animate-pulse animation-delay-200"></div>
-          <div className="w-1 h-1 bg-blue-400 rounded-full animate-pulse animation-delay-400"></div>
-        </div>
       </div>
-
-      {/* Custom Animations */}
-      <style jsx>{`
-        .animation-delay-200 {
-          animation-delay: 0.2s;
-        }
-        .animation-delay-400 {
-          animation-delay: 0.4s;
-        }
-      `}</style>
     </div>
   );
 }

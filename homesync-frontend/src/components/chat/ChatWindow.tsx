@@ -62,14 +62,14 @@ export function ChatWindow({ onClose }: ChatWindowProps) {
             <span className="text-blue-600 font-bold text-sm">AI</span>
           </div>
           <div>
-            <h3 className="text-slate-900 font-semibold">HomeSync Assistant</h3>
+            <h3 className="text-white font-semibold">HomeSync Assistant</h3>
             <p className="text-blue-100 text-xs">Online • Ready to help</p>
           </div>
         </div>
         {onClose && (
           <button
             onClick={onClose}
-            className="text-slate-900 hover:text-gray-200 transition-colors"
+            className="text-white hover:text-gray-200 transition-colors"
             aria-label="Close chat"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,13 +85,13 @@ export function ChatWindow({ onClose }: ChatWindowProps) {
           <div key={index} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
             {msg.sender === 'ai' && (
               <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0">
-                <span className="text-slate-900 text-xs font-bold">AI</span>
+                <span className="text-white text-xs font-bold">AI</span>
               </div>
             )}
             <div className={`rounded-2xl px-4 py-3 max-w-[80%] shadow-sm ${
               msg.sender === 'user' 
-                ? 'bg-blue-500 text-slate-900 rounded-br-md' 
-                : 'bg-white text-gray-100 border border-slate-200 rounded-bl-md'
+                ? 'bg-blue-500 text-white rounded-br-md' 
+                : 'bg-white text-slate-900 border border-slate-200 rounded-bl-md'
             }`}>
               <p className="text-sm leading-relaxed">{msg.text}</p>
             </div>
@@ -106,13 +106,13 @@ export function ChatWindow({ onClose }: ChatWindowProps) {
         {isLoading && (
           <div className="flex justify-start">
             <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-2 mt-1">
-              <span className="text-slate-900 text-xs font-bold">AI</span>
+              <span className="text-white text-xs font-bold">AI</span>
             </div>
             <div className="bg-white rounded-2xl rounded-bl-md px-4 py-3 border border-slate-200">
               <div className="flex items-center gap-1">
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+                <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                <div className="w-2 h-2 bg-blue-300 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
               </div>
             </div>
           </div>

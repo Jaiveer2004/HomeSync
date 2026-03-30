@@ -188,9 +188,9 @@ export function OnboardingForm() {
           <label className="text-sm font-medium text-slate-900">Price Range</label>
           <div className="space-y-2">
             {[
-              { value: 'budget', label: 'Budget Friendly', desc: '₹200-500/hour' },
-              { value: 'standard', label: 'Standard', desc: '₹500-1000/hour' },
-              { value: 'premium', label: 'Premium', desc: '₹1000+/hour' }
+              { value: 'budget', label: 'Budget Friendly', desc: '$200-500/hour' },
+              { value: 'standard', label: 'Standard', desc: '$500-1000/hour' },
+              { value: 'premium', label: 'Premium', desc: '$1000+/hour' }
             ].map((option) => (
               <label key={option.value} className="flex items-center space-x-3 cursor-pointer">
                 <input

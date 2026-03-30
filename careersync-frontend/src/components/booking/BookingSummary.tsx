@@ -23,9 +23,9 @@ export function BookingSummary({ bookings, userRole = 'customer' }: BookingSumma
   const completionRate = totalBookings > 0 ? (completedBookings / totalBookings) * 100 : 0;
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-IN', {
+    return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'INR',
+      currency: 'USD',
       minimumFractionDigits: 0,
     }).format(amount);
   };

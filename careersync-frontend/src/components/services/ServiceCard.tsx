@@ -84,7 +84,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
         
         {/* Category badge */}
         <div className="absolute top-4 left-4">
-          <span className="text-sm text-[#1e40af] font-medium bg-blue-900/80 px-3 py-1 rounded-full backdrop-blur-sm">
+          <span className="text-sm text-[#1e40af] font-medium bg-blue-900/80 px-3 py-1 rounded backdrop-blur-sm">
             {service.category}
           </span>
         </div>
@@ -92,7 +92,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
         {/* Provider count badge */}
         {service.providerCount && (
           <div className="absolute top-4 right-4">
-            <span className="text-xs bg-green-600/90 text-slate-900 px-2 py-1 rounded-full backdrop-blur-sm">
+            <span className="text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-200 px-2 py-1 rounded backdrop-blur-sm">
               {service.providerCount} companies
             </span>
           </div>
@@ -100,8 +100,8 @@ export function ServiceCard({ service }: ServiceCardProps) {
       </div>
 
       {/* Content */}
-      <div className="p-6">
-        <h3 className="text-xl font-bold text-slate-900 mb-3">{service.name}</h3>
+      <div className="p-6 bg-white">
+        <h3 className="text-2xl font-serif font-bold text-slate-900 leading-tight mb-3">{service.name}</h3>
         
         {service.sampleProvider && (
           <div className="flex items-center gap-2 mb-3">
@@ -134,11 +134,11 @@ export function ServiceCard({ service }: ServiceCardProps) {
         
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-2xl font-bold text-slate-900">₹{service.price.toLocaleString()}</p>
+            <p className="text-2xl font-semibold text-slate-900 font-mono">${service.price.toLocaleString()}</p>
             <p className="text-xs text-slate-500">Annual Salary</p>
           </div>
           <Link href={`/service-providers/${encodeURIComponent(service.name)}`}>
-            <Button className="bg-[#1e40af] hover:bg-[#1e3a8a] px-6 py-2">
+            <Button className="bg-indigo-700 hover:bg-slate-900 rounded-none px-6 py-2">
               View Roles
             </Button>
           </Link>

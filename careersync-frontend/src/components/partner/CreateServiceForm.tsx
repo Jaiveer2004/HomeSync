@@ -176,7 +176,7 @@ export function CreateServiceForm() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <label htmlFor="price" className="text-sm font-medium text-slate-900">
-              Price (₹)
+              Price ($)
             </label>
             <Input
               id="price"
@@ -192,7 +192,7 @@ export function CreateServiceForm() {
             />
             {formData.category && (
               <p className="text-xs text-slate-600">
-                Suggested: ₹{suggestPrice(formData.category)} for {formData.category}
+                Suggested: ${suggestPrice(formData.category)} for {formData.category}
               </p>
             )}
           </div>
@@ -246,7 +246,7 @@ export function CreateServiceForm() {
               <h5 className="font-semibold text-slate-900">{formData.name}</h5>
               <p className="text-sm text-slate-500 mb-2">{formData.category}</p>
               <div className="flex justify-between items-center">
-                <span className="text-[#1e40af] font-bold">₹{formData.price}</span>
+                <span className="text-[#1e40af] font-bold">${formData.price}</span>
                 {formData.duration && (
                   <span className="text-slate-500 text-sm">
                     {Number(formData.duration) >= 60 

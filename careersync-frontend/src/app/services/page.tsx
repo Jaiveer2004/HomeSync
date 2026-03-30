@@ -7,8 +7,9 @@ import { getAllServices } from '@/services/apiService';
 import { ServiceCard } from '@/components/services/ServiceCard';
 import { ServiceCardSkeleton } from '@/components/services/ServiceCardSkeleton';
 import { Navbar } from '@/components/shared/Navbar';
+import { Search, SlidersHorizontal, MapPin, Briefcase } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
-// Updated Service interface for grouped services
 interface Service {
   _id: string;
   name: string;
@@ -32,7 +33,6 @@ export default function ServicesPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  // Redirect partners to their services page
   useEffect(() => {
     if (!authLoading && user?.role === 'partner') {
       router.push('/partner/services');
@@ -40,7 +40,6 @@ export default function ServicesPage() {
   }, [user, authLoading, router]);
 
   useEffect(() => {
-    // Only fetch services for customers or non-authenticated users
     if (!authLoading && user?.role !== 'partner') {
       const fetchAllServices = async () => {
         try {
@@ -56,24 +55,19 @@ export default function ServicesPage() {
     }
   }, [authLoading, user]);
 
-  // Show loading while checking auth or if partner is being redirected
   if (authLoading || (user?.role === 'partner')) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-slate-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <div className="text-slate-900">
-            {authLoading ? 'Loading...' : 'Redirecting to your services...'}
-          </div>
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-700 mx-auto mb-4"></div>
+          <div className="text-slate-900 font-medium">Validating credentials...</div>
         </div>
       </div>
     );
   }
 
-  // Get unique categories
   const categories = ['All', ...new Set(services.map(service => service.category))];
 
-  // Filter services based on search and category
   const filteredServices = services.filter(service => {
     const matchesSearch = service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          service.category.toLowerCase().includes(searchTerm.toLowerCase());
@@ -85,82 +79,103 @@ export default function ServicesPage() {
     <div className="min-h-screen bg-slate-50">
       <Navbar />
       
-      <main className="container mx-auto py-8 pt-24 px-4">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-4 text-slate-900">Explore Our Services</h1>
-          <p className="text-slate-500 text-lg mb-6">Choose from our wide range of professional home services</p>
-          
-          {/* Search and Filter */}
-          <div className="flex flex-col md:flex-row gap-4 mb-6">
-            <div className="flex-1">
+      {/* Premium Header Section */}
+      <div className="bg-slate-900 pt-32 pb-20 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+            <div className="max-w-2xl">
+              <span className="inline-block py-1 px-3 rounded text-indigo-400 bg-indigo-900/40 text-xs font-bold tracking-widest uppercase mb-4 border border-indigo-800/50">
+                Live Job Board
+              </span>
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 font-serif leading-tight">
+                Find your next <span className="text-indigo-400 italic">breakthrough</span>
+              </h1>
+              <p className="text-slate-400 text-lg leading-relaxed">
+                Browse through high-quality technical roles from verified top-tier companies. Filter by stack, focus, and salary to match your exact career trajectory.
+              </p>
+            </div>
+            
+            {/* Quick Stats in Header */}
+            <div className="flex gap-6 lg:pb-2">
+              <div className="bg-slate-800/80 rounded-none p-4 border border-slate-700 min-w-[120px]">
+                <div className="text-3xl font-serif font-bold text-white">{services.length}</div>
+                <div className="text-slate-400 text-sm mt-1 uppercase tracking-wide text-xs">Open Roles</div>
+              </div>
+              <div className="bg-slate-800/80 rounded-none p-4 border border-slate-700 min-w-[120px]">
+                <div className="text-3xl font-serif font-bold text-indigo-400">
+                  {services.reduce((sum, service) => sum + (service.providerCount || 1), 0)}
+                </div>
+                <div className="text-slate-400 text-sm mt-1 uppercase tracking-wide text-xs">Hiring Teams</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <main className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        
+        {/* Advanced Filter Bar */}
+        <div className="bg-white p-4 shadow-sm border border-slate-200 rounded-none mb-10 -mt-20 relative z-10">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1 relative">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <Search className="h-5 w-5 text-slate-400" />
+              </div>
               <input
                 type="text"
-                placeholder="Search services..."
+                placeholder="Search job titles, keywords, or stacks..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full pl-12 pr-4 py-4 rounded-none border border-slate-200 bg-slate-50 text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:bg-white transition-colors"
               />
             </div>
-            <div className="md:w-48">
+            <div className="md:w-64 relative">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <Briefcase className="h-5 w-5 text-slate-400" />
+              </div>
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full pl-12 pr-4 py-4 rounded-none border border-slate-200 bg-slate-50 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 appearance-none font-medium cursor-pointer"
               >
                 {categories.map(category => (
                   <option key={category} value={category}>{category}</option>
                 ))}
               </select>
-            </div>
-          </div>
-
-          {/* Stats */}
-          <div className="flex flex-wrap gap-6 mb-8">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-[#1e40af]">{services.length}</div>
-              <div className="text-slate-500 text-sm">Services Available</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-[#1e40af]">
-                {services.reduce((sum, service) => sum + (service.providerCount || 0), 0)}
+              <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                <SlidersHorizontal className="h-4 w-4 text-slate-500" />
               </div>
-              <div className="text-slate-500 text-sm">Total Providers</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-[#1e40af]">{categories.length - 1}</div>
-              <div className="text-slate-500 text-sm">Categories</div>
             </div>
           </div>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {/* Results Grid */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {isLoading ? (
-            // Show 8 skeleton cards while loading
-            Array.from({ length: 8 }).map((_, i) => <ServiceCardSkeleton key={i} />)
+            Array.from({ length: 6 }).map((_, i) => <ServiceCardSkeleton key={i} />)
           ) : filteredServices.length > 0 ? (
-            // Show the real service cards once loaded
             filteredServices.map(service => (
               <ServiceCard key={service._id} service={service} />
             ))
           ) : (
-            // Show a helpful message if no services are found
-            <div className="md:col-span-2 lg:col-span-3 xl:col-span-4 text-center py-12">
-              <div className="text-slate-500 text-lg mb-4">
-                {searchTerm || selectedCategory !== 'All' 
-                  ? 'No services match your criteria' 
-                  : 'No services available at the moment'
-                }
+            <div className="md:col-span-2 lg:col-span-3 text-center py-20 bg-white border border-slate-200 border-dashed">
+              <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Search className="h-10 w-10 text-slate-400" />
               </div>
+              <h3 className="text-2xl font-serif font-bold text-slate-900 mb-2">No roles found</h3>
+              <p className="text-slate-500 max-w-md mx-auto mb-6">
+                We couldn't find any positions matching your specific criteria. Try adjusting your search or category filters.
+              </p>
               {(searchTerm || selectedCategory !== 'All') && (
-                <button
+                <Button
                   onClick={() => {
                     setSearchTerm('');
                     setSelectedCategory('All');
                   }}
-                  className="text-[#1e40af] hover:text-blue-300 underline"
+                  className="bg-indigo-700 hover:bg-slate-900 text-white rounded-none px-8"
                 >
-                  Clear filters
-                </button>
+                  Clear all filters
+                </Button>
               )}
             </div>
           )}

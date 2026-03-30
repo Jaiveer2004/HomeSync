@@ -99,7 +99,7 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
   useEffect(() => {
     if (!authLoading && user?.role === 'partner') {
       router.push('/partner/services');
-      toast.error('Partners cannot book services. You can only provide services.');
+      toast.error('Companies cannot apply to jobs. Switch to a Candidate profile.');
     }
   }, [user, authLoading, router]);
 
@@ -115,7 +115,7 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
       return;
     }
 
-    // Only customers can book services
+    // Only candidates can apply to roles.
     if (user?.role === 'partner') {
       console.log("Partner detected, redirecting...");
       return;
@@ -226,7 +226,7 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
                 providerId: selectedProvider._id
               }
             });
-            toast.success("Booking confirmed!", { id: verificationToast });
+            toast.success("Application submitted successfully!", { id: verificationToast });
             router.push('/my-bookings');
           } catch (error) {
             console.error("Payment verification failed:", error);
@@ -264,9 +264,9 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
   };
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-IN', {
+    return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'INR',
+      currency: 'USD',
       minimumFractionDigits: 0,
     }).format(amount);
   };
@@ -356,22 +356,40 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
                       <div className="text-3xl font-bold text-green-400 mb-1">
                         {formatCurrency(service.price)}
                       </div>
-                      <div className="text-slate-500 text-sm">per service</div>
+                      <div className="text-slate-500 text-sm">/ year</div>
                     </div>
                   </div>
 
                   {service.description && (
                     <div className="mb-6">
-                      <h3 className="text-lg font-semibold text-slate-900 mb-3">Service Description</h3>
+                      <h3 className="text-lg font-semibold text-slate-900 mb-3">Role Description</h3>
                       <p className="text-slate-600 leading-relaxed">{service.description}</p>
                     </div>
                   )}
+
+                  <div className="mb-6 bg-[#1e40af]/5 rounded-xl border border-blue-100 p-6">
+                    <h3 className="text-lg font-semibold text-slate-900 mb-4">Why this role?</h3>
+                    <ul className="space-y-3 mb-6">
+                      <li className="flex items-start gap-3">
+                        <svg className="w-5 h-5 text-[#1e40af] mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div><strong className="text-slate-900">Career Growth</strong><p className="text-sm text-slate-600">Access to comprehensive mentorship and up-skilling programs.</p></div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <svg className="w-5 h-5 text-[#1e40af] mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div><strong className="text-slate-900">Competitive Package</strong><p className="text-sm text-slate-600">Top-tier salary with equity and performance bonuses.</p></div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <svg className="w-5 h-5 text-[#1e40af] mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div><strong className="text-slate-900">Flexible Environment</strong><p className="text-sm text-slate-600">Remote/Hybrid combinations to support work-life integration.</p></div>
+                      </li>
+                    </ul>
+                  </div>
 
                   {/* Provider Selection */}
                   {providers.length > 1 && (
                     <div className="mb-6">
                       <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-lg font-semibold text-slate-900">Choose Your Service Provider</h3>
+                        <h3 className="text-lg font-semibold text-slate-900">Select a Hiring Company</h3>
                         <button
                           onClick={() => setShowProviders(!showProviders)}
                           className="text-[#1e40af] hover:text-blue-300 text-sm font-medium"
@@ -440,7 +458,7 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
                               <div className="font-medium text-slate-900">Selected: {selectedProvider.user.fullName}</div>
                               <div className="text-sm text-slate-500">
                                 {selectedProvider.experienceYears && `${selectedProvider.experienceYears} years experience • `}
-                                {selectedProvider.averageRating ? `★ ${selectedProvider.averageRating.toFixed(1)}` : 'New provider'}
+                                {selectedProvider.averageRating ? `★ ${selectedProvider.averageRating.toFixed(1)}` : 'New company on platform'}
                               </div>
                             </div>
                           </div>
@@ -452,7 +470,7 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
                   {/* Default provider info */}
                   {providers.length <= 1 && selectedProvider && (
                     <div className="mb-6">
-                      <h3 className="text-lg font-semibold text-slate-900 mb-3">Your Service Provider</h3>
+                      <h3 className="text-lg font-semibold text-slate-900 mb-3">Your Company Profile</h3>
                       <div className="bg-slate-100/50 rounded-xl p-4 border border-slate-300">
                         <div className="flex items-center gap-4">
                           <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-lg">

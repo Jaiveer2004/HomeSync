@@ -104,7 +104,7 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
               <p className="mt-2 font-medium text-slate-900">{service.partner.user.fullName}</p>
               <p className="text-sm text-slate-500 mt-1">{service.partner.bio}</p>
               <hr className="my-4 border-slate-300" />
-              <p className="text-3xl font-bold text-center text-[#1e40af]">₹{service.price}</p>
+              <p className="text-3xl font-bold text-center text-[#1e40af]">${service.price}</p>
               <Link href={`/book/${service._id}`}>
                 <Button className="w-full mt-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700">
                   Book Now

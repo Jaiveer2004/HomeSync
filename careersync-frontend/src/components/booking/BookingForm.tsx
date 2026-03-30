@@ -54,9 +54,9 @@ export function BookingForm({ service, selectedProvider, onFormSubmit }: Booking
   const [isLoading, setIsLoading] = useState(false);
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-IN', {
+    return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'INR',
+      currency: 'USD',
       minimumFractionDigits: 0,
     }).format(amount);
   };
@@ -106,8 +106,8 @@ export function BookingForm({ service, selectedProvider, onFormSubmit }: Booking
     <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6">
-        <h2 className="text-2xl font-bold text-slate-900 mb-2">Book This Service</h2>
-        <p className="text-blue-100">Fill in your details to proceed with booking</p>
+        <h2 className="text-2xl font-bold text-slate-900 mb-2">Submit Application</h2>
+        <p className="text-blue-100">Provide your availability and location to process your application.</p>
       </div>
 
       {/* Form Content */}
@@ -152,7 +152,7 @@ export function BookingForm({ service, selectedProvider, onFormSubmit }: Booking
         {/* Date Selection */}
         <div>
           <label className="block text-sm font-medium text-slate-600 mb-2">
-            Select Date
+            Preferred Interview Date
           </label>
           <Input 
             type="date" 
@@ -167,7 +167,7 @@ export function BookingForm({ service, selectedProvider, onFormSubmit }: Booking
         {/* Time Selection */}
         <div>
           <label className="block text-sm font-medium text-slate-600 mb-2">
-            Preferred Time
+            Preferred Interview Time
           </label>
           <select 
             value={bookingTime} 
@@ -186,14 +186,14 @@ export function BookingForm({ service, selectedProvider, onFormSubmit }: Booking
 
         {/* Address Section */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-slate-900">Service Address</h3>
+          <h3 className="text-lg font-semibold text-slate-900">Applicant Details</h3>
           
           <div>
             <label className="block text-sm font-medium text-slate-600 mb-2">
-              Street Address
+              LinkedIn Profile URL
             </label>
             <Input 
-              placeholder="Enter your full address" 
+              placeholder="https://linkedin.com/in/yourprofile" 
               value={street} 
               onChange={e => setStreet(e.target.value)} 
               required 
@@ -207,7 +207,7 @@ export function BookingForm({ service, selectedProvider, onFormSubmit }: Booking
                 City
               </label>
               <Input 
-                placeholder="City" 
+                placeholder="e.g. San Francisco, CA" 
                 value={city} 
                 onChange={e => setCity(e.target.value)} 
                 required 
@@ -219,7 +219,7 @@ export function BookingForm({ service, selectedProvider, onFormSubmit }: Booking
                 Postal Code
               </label>
               <Input 
-                placeholder="Postal Code" 
+                placeholder="e.g. 5" 
                 value={postalCode} 
                 onChange={e => setPostalCode(e.target.value)} 
                 required 
@@ -232,10 +232,10 @@ export function BookingForm({ service, selectedProvider, onFormSubmit }: Booking
         {/* Additional Notes */}
         <div>
           <label className="block text-sm font-medium text-slate-600 mb-2">
-            Additional Notes (Optional)
+            Cover Letter / Additional Information
           </label>
           <Textarea 
-            placeholder="Any specific requirements or instructions for the service provider..."
+            placeholder="Why are you a good fit for this role? Share your motivation..."
             value={notes} 
             onChange={e => setNotes(e.target.value)}
             rows={3}
@@ -275,13 +275,13 @@ export function BookingForm({ service, selectedProvider, onFormSubmit }: Booking
               Processing...
             </div>
           ) : (
-            `Pay ${formatCurrency(service.price)} & Book Service`
+            `Submit Application`
           )}
         </Button>
 
         {!selectedProvider && (
           <p className="text-red-400 text-sm text-center">
-            Please select a service provider to proceed with booking
+            Please select a service provider to proceed with application
           </p>
         )}
 

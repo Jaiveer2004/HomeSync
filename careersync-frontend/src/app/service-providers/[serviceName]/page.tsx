@@ -172,12 +172,12 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold text-slate-900">{serviceName}</h1>
-              <p className="text-slate-500 mt-1">Choose from {serviceData.totalProviders} verified professionals</p>
+              <p className="text-slate-500 mt-1">Choose from {serviceData.totalProviders} actively hiring companies</p>
             </div>
             <div className="text-right">
               <div className="text-sm text-slate-600">Starting from</div>
               <div className="text-2xl font-bold text-green-600">
-                ₹{Math.min(...serviceData.providers.map(p => p.price))}
+                ${Math.min(...serviceData.providers.map(p => p.price))}
               </div>
             </div>
           </div>
@@ -188,13 +188,13 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Available Now Section */}
+            {/* Actively Reviewing Section */}
             {availableProviders.length > 0 && (
               <section>
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                   <h2 className="text-xl font-bold text-slate-900">
-                    Available Now ({availableProviders.length})
+                    Actively Reviewing ({availableProviders.length})
                   </h2>
                 </div>
                 
@@ -233,13 +233,13 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                                   {service.provider.averageRating.toFixed(1)}
                                 </span>
                                 <span>({service.provider.reviewCount} reviews)</span>
-                                <span>{service.duration} min duration</span>
+                                <span>{service.duration} Interview Type</span>
                               </div>
                             </div>
                             
                             <div className="text-right">
-                              <div className="text-2xl font-bold text-slate-900">₹{service.price}</div>
-                              <div className="text-sm text-slate-600">per service</div>
+                              <div className="text-2xl font-bold text-slate-900">${service.price}</div>
+                              <div className="text-sm text-slate-600">/ year</div>
                             </div>
                           </div>
 
@@ -268,14 +268,14 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                               className="bg-purple-600 hover:bg-purple-700 text-slate-900 px-6"
                               onClick={() => setSelectedProvider(service)}
                             >
-                              View Details
+                              Company Details
                             </Button>
                             <Link href={`/book/${service.serviceId}`}>
                               <Button 
                                 variant="outline" 
                                 className="border-purple-600 text-[#1e40af] hover:bg-purple-50"
                               >
-                                Book Now
+                                Apply Now
                               </Button>
                             </Link>
                           </div>
@@ -287,11 +287,11 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
               </section>
             )}
 
-            {/* Offline Providers Section */}
+            {/* Other Hiring Companies Section */}
             {offlineProviders.length > 0 && (
               <section>
                 <h2 className="text-xl font-bold text-slate-900 mb-6">
-                  All Professionals ({offlineProviders.length})
+                  All Hiring Companies ({offlineProviders.length})
                 </h2>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -313,10 +313,10 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                           <p className="text-sm text-slate-500">{service.description}</p>
                           <div className="flex items-center gap-2 mt-1">
                             <span className="text-sm text-yellow-600">⭐ {service.provider.averageRating.toFixed(1)}</span>
-                            <span className="text-sm text-slate-600">₹{service.price}</span>
+                            <span className="text-sm text-slate-600">${service.price}</span>
                           </div>
                         </div>
-                        <div className="text-xs text-slate-600">Next: {service.provider.nextAvailableSlot}</div>
+                        <div className="text-xs text-slate-600">{service.provider.nextAvailableSlot ? "Next Review:" : "Active:"}: {service.provider.nextAvailableSlot}</div>
                       </div>
                     </div>
                   ))}
@@ -328,7 +328,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
           {/* Sidebar */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-sm border p-6 sticky top-4">
-              <h3 className="text-lg font-bold text-slate-900 mb-4">Types of {serviceName}</h3>
+              <h3 className="text-lg font-bold text-slate-900 mb-4">Roles in {serviceName}</h3>
               
               {/* Service Types */}
               <div className="space-y-3">
@@ -343,7 +343,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                       <div>
                         <div className="font-medium text-slate-900">{serviceType}</div>
                         <div className="text-sm text-slate-600">
-                          {serviceData.providers.filter(p => p.serviceName === serviceType).length} professionals
+                          {serviceData.providers.filter(p => p.serviceName === serviceType).length} open roles
                         </div>
                       </div>
                     </div>
@@ -354,10 +354,10 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                 ))}
               </div>
 
-              {/* Quick Book Section */}
+              {/* Quick Apply Section */}
               <div className="mt-6 p-4 bg-blue-900/20 rounded-lg">
-                <h4 className="font-semibold text-[#1e40af] mb-2">Quick Book</h4>
-                <p className="text-sm text-slate-500 mb-3">Get instant booking for available professionals</p>
+                <h4 className="font-semibold text-[#1e40af] mb-2">Quick Apply</h4>
+                <p className="text-sm text-slate-500 mb-3">Submit your profile directly to hiring managers</p>
                 <Button 
                   onClick={() => {
                     const firstProvider = serviceData?.providers?.[0];
@@ -367,7 +367,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                   }}
                   className="w-full bg-[#1e40af] hover:bg-[#1e3a8a] text-white"
                 >
-                  Book Instantly
+                  Apply Instantly
                 </Button>
               </div>
             </div>
@@ -413,16 +413,16 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                 <p className="text-slate-500">{selectedProvider.provider.bio}</p>
               </div>
 
-              {/* Service Details */}
+              {/* Role Details */}
               <div className="mb-6">
-                <h4 className="font-semibold text-slate-900 mb-3">Service Details</h4>
+                <h4 className="font-semibold text-slate-900 mb-3">Role Details</h4>
                 <div className="border rounded-lg p-4">
                   <div className="flex justify-between items-center">
                     <div>
                       <h5 className="font-medium text-slate-900">{selectedProvider.serviceName}</h5>
                       <p className="text-sm text-slate-500">{selectedProvider.duration} minutes</p>
                     </div>
-                    <span className="font-semibold text-slate-900">₹{selectedProvider.price}</span>
+                    <span className="font-semibold text-slate-900">${selectedProvider.price}</span>
                   </div>
                 </div>
               </div>
@@ -430,7 +430,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
               {/* Reviews */}
               {selectedProvider.provider.recentReviews.length > 0 && (
                 <div className="mb-6">
-                  <h4 className="font-semibold text-slate-900 mb-3">Recent Reviews</h4>
+                  <h4 className="font-semibold text-slate-900 mb-3">Candidate Feedback</h4>
                   <div className="space-y-3">
                     {selectedProvider.provider.recentReviews.slice(0, 3).map((review, index) => (
                       <div key={index} className="border-l-4 border-b border-slate-200lue-200 pl-4">

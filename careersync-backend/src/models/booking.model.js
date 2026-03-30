@@ -42,12 +42,6 @@ const bookingSchema = new Schema({
     enum: ['pending', 'paid'],
     default: 'pending',
   },
-  razorpayOrderId: {
-    type: String,
-  },
-  razorpayPaymentId: {
-    type: String,
-  },
   rejectionReason: {
     type: String,
   },

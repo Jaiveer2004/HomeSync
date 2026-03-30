@@ -39,13 +39,6 @@ interface BookingData {
     [key: string]: unknown;
 }
 
-interface PaymentData {
-    razorpay_order_id: string;
-    razorpay_payment_id: string;
-    razorpay_signature: string;
-    bookingDetails: BookingData;
-    [key: string]: unknown;
-}
 
 interface ReviewData {
     bookingId: string;
@@ -121,13 +114,6 @@ export const createBooking = (bookingData: BookingData) => {
     return api.post('/bookings', bookingData);
 };
 
-export const createPaymentOrder = (serviceId: string) => {
-    return api.post('/bookings/create-order', { serviceId });
-};
-
-export const verifyPayment = (paymentData: PaymentData) => {
-    return api.post('/bookings/verify-payment', paymentData);
-};
 
 export const getUserBookings = () => {
     return api.get('/bookings/my-bookings');

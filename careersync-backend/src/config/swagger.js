@@ -16,7 +16,7 @@ Welcome to the CareerSync API documentation. CareerSync is a comprehensive home 
 - **User Authentication**: Secure JWT-based authentication with email verification
 - **Two-Factor Authentication**: TOTP-based 2FA with backup codes for enhanced security
 - **Service Management**: Partners can create and manage their service offerings
-- **Booking System**: Complete booking flow with Razorpay payment integration
+- **Booking System**: Complete booking flow 
 - **Real-time Chat**: Socket.IO powered messaging between customers and partners
 - **Review System**: Customer reviews and ratings for quality assurance
 - **OTP Login**: Passwordless authentication option via email OTP

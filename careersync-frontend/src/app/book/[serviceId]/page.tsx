@@ -3,7 +3,7 @@
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { BookingForm } from "@/components/booking/BookingForm";
 import { BookingPageSkeleton } from "@/components/booking/BookingPageSkeleton";
-import { getServiceById, getServiceProviders, createPaymentOrder, verifyPayment } from "@/services/apiService";
+import { getServiceById, getServiceProviders, createBooking } from "@/services/apiService";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
@@ -58,30 +58,6 @@ interface BookingDetails {
   serviceId?: string;
   providerId?: string;
 }
-
-interface RazorpayResponse {
-  razorpay_order_id: string;
-  razorpay_payment_id: string;
-  razorpay_signature: string;
-}
-
-interface RazorpayOptions {
-  key: string | undefined;
-  amount: number;
-  currency: string;
-  name: string;
-  description: string;
-  order_id: string;
-  handler: (response: RazorpayResponse) => Promise<void>;
-  prefill: {
-    name: string | undefined;
-    email: string | undefined;
-  };
-  theme: {
-    color: string;
-  };
-}
-
 export default function BookServicePage({ params }: { params: Promise<{ serviceId: string }> }) {
   const router = useRouter();
   const { user, isLoading: authLoading } = useAuth();
@@ -316,7 +292,7 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
     <ProtectedRoute>
       <div className="min-h-screen bg-slate-50">
         <Navbar />
-        <Script id="razorpay-checkout-js" src="https://checkout.razorpay.com/v1/checkout.js" />
+        
         
         <main className="container mx-auto py-8 pt-24 px-4">
           {/* Header Section */}

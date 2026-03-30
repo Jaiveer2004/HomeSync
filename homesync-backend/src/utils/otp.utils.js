@@ -159,6 +159,11 @@ const sendOTPEmail = async (email, plainOTP, fullName, type = 'login', device = 
       html,
     };
 
+    if (!transporter) {
+      console.warn('⚠️ Email not sent: Email service is not configured');
+      return { success: false, error: 'Email service not configured' };
+    }
+
     const info = await transporter.sendMail(mailOptions);
     console.log('OTP email sent:', info.messageId);
     return { success: true, messageId: info.messageId };
@@ -189,6 +194,11 @@ const sendVerificationEmail = async (email, verificationCode, verificationToken,
       subject: 'Verify Your HomeSync Account',
       html,
     };
+
+    if (!transporter) {
+      console.warn('⚠️ Email not sent: Email service is not configured');
+      return { success: false, error: 'Email service not configured' };
+    }
 
     const info = await transporter.sendMail(mailOptions);
     console.log('Verification email sent:', info.messageId);

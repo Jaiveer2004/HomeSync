@@ -31,21 +31,13 @@ const requestPasswordReset = async (req, res) => {
     user.passwordResetExpiry = resetExpiry;
     await user.save();
 
-    // Send email
-    const frontendURL = process.env.FRONTEND_URL || 'http://localhost:3000';
-    const resetLink = `${frontendURL}/reset-password?token=${resetToken}`;
+    // Send email using utils
+    const { sendPasswordResetEmail } = require('../utils/email.utils');
+    const emailResult = await sendPasswordResetEmail(email, resetToken, user.firstName || 'User');
     
-    await transporter.sendMail({
-      from: process.env.EMAIL_FROM,
-      to: email,
-      subject: 'Reset Your HomeSync Password',
-      html: `
-        <h2>Password Reset Request</h2>
-        <p>Click the link below to reset your password:</p>
-        <a href="${resetLink}">Reset Password</a>
-        <p>This link expires in 1 hour.</p>
-      `,
-    });
+    if (emailResult && !emailResult.success) {
+      console.warn('Failed to send email:', emailResult.error);
+    }
 
     res.status(200).json({
       message: 'Password reset link sent successfully',

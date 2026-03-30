@@ -23,19 +23,19 @@ export function WelcomeBanner({ stats }: WelcomeBannerProps) {
 
   const getWelcomeMessage = () => {
     if (user?.role === 'partner') {
-      return "Ready to help customers today?";
+      return "Ready to find some great talent today?";
     }
-    return "What service can we help you with today?";
+    return "Ready to find your next tech role?";
   };
 
   return (
-    <div className="bg-gradient-to-br from-blue-500 via-blue-600 to-purple-600 rounded-2xl p-8 text-white shadow-xl">
+    <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900 rounded-none p-8 text-white shadow-xl">
       <div className="flex items-center justify-between">
         <div className="flex-1">
           <h1 className="text-3xl font-bold mb-2">
             {getGreeting()}, {user?.fullName?.split(' ')[0]}! 👋
           </h1>
-          <p className="text-blue-100 text-lg mb-4">
+          <p className="text-indigo-200 text-lg mb-4">
             {getWelcomeMessage()}
           </p>
           
@@ -62,7 +62,7 @@ export function WelcomeBanner({ stats }: WelcomeBannerProps) {
         <div className="hidden lg:block">
           <div className="w-32 h-32 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm">
             <span className="text-6xl">
-              {user?.role === 'partner' ? '🛠️' : '🏠'}
+              {user?.role === 'partner' ? '🏢' : '🚀'}
             </span>
           </div>
         </div>

@@ -44,8 +44,8 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
   };
 
   return (
-    <div className="bg-white rounded-2xl p-6 border border-slate-200">
-      <h3 className="text-lg font-semibold text-slate-900 mb-4">Recent Activity</h3>
+    <div className="bg-white rounded-none p-6 border border-slate-200">
+      <h3 className="text-xl font-serif font-bold text-slate-900 mb-4">Recent Activity</h3>
       
       {activities.length === 0 ? (
         <div className="text-center py-8">

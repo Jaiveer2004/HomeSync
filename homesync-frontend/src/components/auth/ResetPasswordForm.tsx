@@ -84,91 +84,93 @@ export default function ResetPasswordForm() {
 
   if (!validToken) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4">
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center">
-              <XCircle className="h-8 w-8 text-slate-900" />
+      <div className="min-h-screen bg-slate-50 flex flex-col">
+        <main className="flex-grow flex items-center justify-center pt-24 pb-16 px-4">
+          <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-2xl w-full max-w-md">
+            <div className="text-center mb-6">
+              <div className="mx-auto mb-4 w-16 h-16 rounded-2xl bg-gradient-to-br from-red-400 to-red-600 shadow-lg shadow-red-500/30 flex items-center justify-center">
+                <XCircle className="h-8 w-8 text-white" />
+              </div>
+              <h2 className="text-2xl font-bold text-slate-900 mb-2">Invalid Link</h2>
+              <p className="text-slate-500">
+                This password reset link is invalid or has expired
+              </p>
             </div>
-            <CardTitle className="text-3xl font-bold">Invalid Link</CardTitle>
-            <CardDescription>
-              This password reset link is invalid or has expired
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
             <Button
               onClick={() => router.push("/forgot-password")}
-              className="w-full"
+              className="w-full bg-slate-100 hover:bg-slate-200 text-slate-900 border-none shadow-sm transition-all duration-200 py-3 text-base font-medium"
             >
               Request New Reset Link
             </Button>
-          </CardContent>
-        </Card>
+          </div>
+        </main>
       </div>
     );
   }
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4">
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
-              <CheckCircle2 className="h-8 w-8 text-slate-900" />
+      <div className="min-h-screen bg-slate-50 flex flex-col">
+        <main className="flex-grow flex items-center justify-center pt-24 pb-16 px-4">
+          <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-2xl w-full max-w-md">
+            <div className="text-center mb-6">
+              <div className="mx-auto mb-4 w-16 h-16 rounded-2xl bg-gradient-to-br from-green-400 to-green-600 shadow-lg shadow-green-500/30 flex items-center justify-center">
+                <CheckCircle2 className="h-8 w-8 text-white" />
+              </div>
+              <h2 className="text-2xl font-bold text-slate-900 mb-2">Password Reset!</h2>
+              <p className="text-slate-500">
+                Your password has been successfully reset
+              </p>
             </div>
-            <CardTitle className="text-3xl font-bold">Password Reset!</CardTitle>
-            <CardDescription>
-              Your password has been successfully reset
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Alert variant="success">
-              <AlertTitle>Success!</AlertTitle>
-              <AlertDescription>
+            <Alert className="mb-6 bg-green-50 border-green-200 text-green-800">
+              <AlertTitle className="text-green-800 font-semibold">Success!</AlertTitle>
+              <AlertDescription className="text-green-700">
                 You can now log in with your new password. Redirecting to login page...
               </AlertDescription>
             </Alert>
-          </CardContent>
-        </Card>
+          </div>
+        </main>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            Reset Password
-          </CardTitle>
-          <CardDescription>
-            Create a strong new password for your account
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
+      <main className="flex-grow flex items-center justify-center pt-24 pb-16 px-4">
+        <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-2xl w-full max-w-md">
+          <div className="text-center mb-8">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/30">
+              <Lock className="w-8 h-8 text-white" />
+            </div>
+            <h1 className="text-2xl font-bold text-slate-900 mb-2">Reset Password</h1>
+            <p className="text-slate-500">
+              Create a strong new password for your account
+            </p>
+          </div>
+
           {error && (
-            <Alert variant="destructive" onClose={() => setError("")}>
+            <Alert variant="destructive" className="mb-6" onClose={() => setError("")}>
               <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="newPassword">New Password</Label>
+              <Label htmlFor="newPassword" className="text-sm font-medium text-slate-900">New Password</Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-500" />
                 <Input
                   id="newPassword"
                   type={showPassword ? "text" : "password"}
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  className="pl-10 pr-10"
+                  className="pl-10 pr-10 transition-all duration-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   required
                 />
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-500" />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-500 hover:text-slate-600"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-500 hover:text-slate-700"
                 >
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
@@ -176,8 +178,8 @@ export default function ResetPasswordForm() {
             </div>
 
             {newPassword && (
-              <div className="space-y-2 p-3 bg-white/50 rounded-lg">
-                <p className="text-xs font-semibold text-slate-600">Password Requirements:</p>
+              <div className="space-y-2 p-3 bg-slate-50 rounded-lg border border-slate-100">
+                <p className="text-xs font-semibold text-slate-700">Password Requirements:</p>
                 <div className="space-y-1">
                   <PasswordRequirement
                     met={passwordValidation.minLength}
@@ -204,39 +206,41 @@ export default function ResetPasswordForm() {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Label htmlFor="confirmPassword" className="text-sm font-medium text-slate-900">Confirm Password</Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-500" />
                 <Input
                   id="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="pl-10 pr-10"
+                  className="pl-10 pr-10 transition-all duration-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   required
                 />
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-500" />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-500 hover:text-slate-600"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-500 hover:text-slate-700"
                 >
                   {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
               </div>
               {confirmPassword && newPassword !== confirmPassword && (
-                <p className="text-xs text-red-400">Passwords do not match</p>
+                <p className="text-xs text-red-500 font-medium mt-1">Passwords do not match</p>
               )}
             </div>
 
             <Button
               type="submit"
-              className="w-full"
+              className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-none shadow-lg hover:shadow-xl transition-all duration-200 py-3 text-base font-medium"
               disabled={isLoading || !passwordValidation.isValid || newPassword !== confirmPassword}
-              size="lg"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center gap-2">
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
                   Resetting Password...
                 </div>
               ) : (
@@ -244,8 +248,8 @@ export default function ResetPasswordForm() {
               )}
             </Button>
           </form>
-        </CardContent>
-      </Card>
+        </div>
+      </main>
     </div>
   );
 }
@@ -254,11 +258,11 @@ function PasswordRequirement({ met, text }: { met: boolean; text: string }) {
   return (
     <div className="flex items-center gap-2 text-xs">
       {met ? (
-        <CheckCircle2 className="h-3 w-3 text-green-400 flex-shrink-0" />
+        <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
       ) : (
-        <XCircle className="h-3 w-3 text-slate-600 flex-shrink-0" />
+        <XCircle className="h-4 w-4 text-slate-300 flex-shrink-0" />
       )}
-      <span className={met ? "text-green-400" : "text-slate-500"}>{text}</span>
+      <span className={met ? "text-green-600 font-medium" : "text-slate-500"}>{text}</span>
     </div>
   );
 }

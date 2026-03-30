@@ -75,131 +75,151 @@ export default function OTPLoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-              {step === "email" ? "Login with OTP" : "Verify OTP"}
-            </CardTitle>
-            {step === "otp" && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setStep("email")}
-                className="h-8 w-8"
-              >
-                <ArrowLeft className="h-4 w-4" />
-              </Button>
-            )}
-          </div>
-          <CardDescription>
-            {step === "email"
-              ? "Enter your email to receive a one-time password"
-              : "Enter the 6-digit code sent to your email"}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {error && (
-            <Alert variant="destructive" onClose={() => setError("")}>
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
-          
-          {success && (
-            <Alert variant="success" onClose={() => setSuccess("")}>
-              <AlertDescription>{success}</AlertDescription>
-            </Alert>
-          )}
-
-          {step === "email" ? (
-            <form onSubmit={handleRequestOTP} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-500" />
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="name@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10"
-                    required
-                  />
-                </div>
-              </div>
-
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? (
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    Sending OTP...
-                  </div>
-                ) : (
-                  "Send OTP"
-                )}
-              </Button>
-            </form>
-          ) : (
-            <form onSubmit={handleVerifyOTP} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="otp">One-Time Password</Label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-500" />
-                  <Input
-                    id="otp"
-                    type="text"
-                    placeholder="123456"
-                    value={otp}
-                    onChange={(e) => setOTP(e.target.value.replace(/\D/g, "").slice(0, 6))}
-                    className="pl-10 text-center text-2xl tracking-widest"
-                    maxLength={6}
-                    required
-                  />
-                </div>
-                <p className="text-xs text-slate-500 text-center">
-                  OTP expires in 10 minutes
-                </p>
-              </div>
-
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? (
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    Verifying...
-                  </div>
-                ) : (
-                  "Verify & Login"
-                )}
-              </Button>
-
-              <div className="text-center">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
+      <main className="flex-grow flex items-center justify-center pt-24 pb-16 px-4">
+        <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-2xl w-full max-w-md">
+          <div className="text-center mb-8">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/30">
+              <Lock className="w-8 h-8 text-white" />
+            </div>
+            <div className="flex items-center justify-center space-x-2 mb-2 relative">
+              {step === "otp" && (
                 <Button
-                  type="button"
                   variant="ghost"
-                  onClick={handleResendOTP}
-                  disabled={isLoading}
-                  className="text-sm"
+                  size="icon"
+                  onClick={() => setStep("email")}
+                  className="absolute left-0 h-8 w-8 text-slate-500 hover:text-slate-800"
                 >
-                  Didn&apos;t receive code? Resend OTP
+                  <ArrowLeft className="h-4 w-4" />
                 </Button>
-              </div>
-            </form>
-          )}
-
-          <div className="text-center text-sm text-slate-500">
-            Back to{" "}
-            <button
-              type="button"
-              onClick={() => router.push("/login")}
-              className="text-[#1e40af] hover:text-blue-300 font-medium transition-colors"
-            >
-              Password Login
-            </button>
+              )}
+              <h1 className="text-2xl font-bold text-slate-900">
+                {step === "email" ? "Login with OTP" : "Verify OTP"}
+              </h1>
+            </div>
+            <p className="text-slate-500">
+              {step === "email"
+                ? "Enter your email to receive a one-time password"
+                : "Enter the 6-digit code sent to your email"}
+            </p>
           </div>
-        </CardContent>
-      </Card>
+
+          <div className="space-y-4">
+            {error && (
+              <Alert variant="destructive" className="mb-4" onClose={() => setError("")}>
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+            
+            {success && (
+              <Alert className="mb-4 bg-green-50 border-green-200 text-green-800" onClose={() => setSuccess("")}>
+                <AlertDescription>{success}</AlertDescription>
+              </Alert>
+            )}
+
+            {step === "email" ? (
+              <form onSubmit={handleRequestOTP} className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-sm font-medium text-slate-900">Email Address</Label>
+                  <div className="relative">
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="name@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="pl-10 transition-all duration-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      required
+                    />
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-500" />
+                  </div>
+                </div>
+
+                <Button 
+                  type="submit" 
+                  className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-none shadow-lg hover:shadow-xl transition-all duration-200 py-3 text-base font-medium" 
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Sending OTP...
+                    </div>
+                  ) : (
+                    "Send OTP"
+                  )}
+                </Button>
+              </form>
+            ) : (
+              <form onSubmit={handleVerifyOTP} className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="otp" className="text-sm font-medium text-slate-900">One-Time Password</Label>
+                  <div className="relative">
+                    <Input
+                      id="otp"
+                      type="text"
+                      placeholder="123456"
+                      value={otp}
+                      onChange={(e) => setOTP(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                      className="pl-10 text-center text-2xl tracking-widest transition-all duration-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      maxLength={6}
+                      required
+                    />
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-500" />
+                  </div>
+                  <p className="text-xs text-slate-500 text-center">
+                    OTP expires in 10 minutes
+                  </p>
+                </div>
+
+                <Button 
+                  type="submit" 
+                  className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-none shadow-lg hover:shadow-xl transition-all duration-200 py-3 text-base font-medium" 
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Verifying...
+                    </div>
+                  ) : (
+                    "Verify & Login"
+                  )}
+                </Button>
+
+                <div className="text-center mt-2">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={handleResendOTP}
+                    disabled={isLoading}
+                    className="text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors"
+                  >
+                    Didn&apos;t receive code? Resend OTP
+                  </Button>
+                </div>
+              </form>
+            )}
+
+            <div className="mt-8 text-center text-sm text-slate-600">
+              Back to{" "}
+              <button
+                type="button"
+                onClick={() => router.push("/login")}
+                className="text-[#1e40af] hover:text-blue-700 font-medium transition-colors"
+              >
+                Password Login
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }

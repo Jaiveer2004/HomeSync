@@ -57,7 +57,7 @@ const sendEmail = async (options) => {
  */
 const loadTemplate = (templateName, data) => {
   try {
-    const templatePath = path.join(__dirname, '../templates/emails', `${templateName}.html`);
+    const templatePath = path.join(__dirname, '../emails', `${templateName}.html`);
     const templateContent = fs.readFileSync(templatePath, 'utf-8');
     const template = handlebars.compile(templateContent);
     return template(data);

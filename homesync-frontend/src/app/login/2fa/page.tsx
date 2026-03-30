@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import TwoFactorLogin from "@/components/auth/TwoFactorLogin";
+import { Navbar } from "@/components/shared/Navbar";
 
 function TwoFactorPageContent() {
   const searchParams = useSearchParams();
@@ -21,24 +22,27 @@ function TwoFactorPageContent() {
 
   if (!email) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="text-slate-900">Loading...</div>
       </div>
     );
   }
 
   return (
-    <TwoFactorLogin 
-      email={email} 
-      onBack={() => router.push("/login")} 
-    />
+    <>
+      <Navbar />
+      <TwoFactorLogin 
+        email={email} 
+        onBack={() => router.push("/login")} 
+      />
+    </>
   );
 }
 
 export default function TwoFactorPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="text-slate-900">Loading...</div>
       </div>
     }>

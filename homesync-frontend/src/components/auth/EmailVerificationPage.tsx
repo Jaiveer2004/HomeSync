@@ -70,82 +70,92 @@ export default function EmailVerificationPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-            {status === "loading" && <Loader2 className="h-8 w-8 text-slate-900 animate-spin" />}
-            {status === "success" && <CheckCircle2 className="h-8 w-8 text-slate-900" />}
-            {status === "error" && <XCircle className="h-8 w-8 text-slate-900" />}
+    <div className="min-h-screen bg-slate-50 flex flex-col">
+      <main className="flex-grow flex items-center justify-center pt-24 pb-16 px-4">
+        <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-2xl w-full max-w-md">
+          <div className="text-center mb-8">
+            <div className={`mx-auto mb-4 w-16 h-16 rounded-2xl shadow-lg flex items-center justify-center ${
+              status === "loading" ? "bg-gradient-to-br from-blue-400 to-blue-600 shadow-blue-500/30" : 
+              status === "success" ? "bg-gradient-to-br from-green-400 to-green-600 shadow-green-500/30" : 
+              "bg-gradient-to-br from-red-400 to-red-600 shadow-red-500/30"
+            }`}>
+              {status === "loading" && <Loader2 className="h-8 w-8 text-white animate-spin" />}
+              {status === "success" && <CheckCircle2 className="h-8 w-8 text-white" />}
+              {status === "error" && <XCircle className="h-8 w-8 text-white" />}
+            </div>
+            <h1 className="text-2xl font-bold text-slate-900 mb-2">
+              {status === "loading" && "Verifying Email..."}
+              {status === "success" && "Email Verified!"}
+              {status === "error" && "Verification Failed"}
+            </h1>
+            <p className="text-slate-500">
+              {status === "loading" && "Please wait while we verify your email address"}
+              {status === "success" && "Your account has been successfully verified"}
+              {status === "error" && "We couldn't verify your email address"}
+            </p>
           </div>
-          <CardTitle className="text-3xl font-bold">
-            {status === "loading" && "Verifying Email..."}
-            {status === "success" && "Email Verified!"}
-            {status === "error" && "Verification Failed"}
-          </CardTitle>
-          <CardDescription>
-            {status === "loading" && "Please wait while we verify your email address"}
-            {status === "success" && "Your account has been successfully verified"}
-            {status === "error" && "We couldn't verify your email address"}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <Alert variant={status === "success" ? "success" : status === "error" ? "destructive" : "default"}>
-            <AlertTitle className="flex items-center gap-2">
-              {status === "success" && <CheckCircle2 className="h-4 w-4" />}
-              {status === "error" && <XCircle className="h-4 w-4" />}
-              {status === "loading" && <Loader2 className="h-4 w-4 animate-spin" />}
-              {status === "loading" ? "Processing..." : status === "success" ? "Success" : "Error"}
-            </AlertTitle>
-            <AlertDescription className="mt-2">
-              {message}
-            </AlertDescription>
-          </Alert>
 
-          {status === "success" && (
-            <div className="text-center space-y-2">
-              <p className="text-sm text-slate-500">
-                Redirecting to login page in 3 seconds...
-              </p>
-              <Button
-                onClick={() => router.push("/login")}
-                className="w-full"
-              >
-                Go to Login
-              </Button>
-            </div>
-          )}
+          <div className="space-y-6">
+            <Alert 
+              variant={status === "error" ? "destructive" : "default"}
+              className={status === "success" ? "bg-green-50 border-green-200 text-green-800" : ""}
+            >
+              <AlertTitle className={`flex items-center gap-2 ${status === "success" ? "text-green-800 font-semibold" : ""}`}>
+                {status === "success" && <CheckCircle2 className="h-4 w-4" />}
+                {status === "error" && <XCircle className="h-4 w-4" />}
+                {status === "loading" && <Loader2 className="h-4 w-4 animate-spin text-blue-600" />}
+                {status === "loading" ? "Processing..." : status === "success" ? "Success" : "Error"}
+              </AlertTitle>
+              <AlertDescription className={`mt-2 ${status === "success" ? "text-green-700" : ""}`}>
+                {message}
+              </AlertDescription>
+            </Alert>
 
-          {status === "error" && (
-            <div className="space-y-3">
-              <Button
-                onClick={handleResendVerification}
-                disabled={isResending || !email}
-                className="w-full"
-              >
-                {isResending ? (
-                  <div className="flex items-center justify-center gap-2">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Sending...
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center gap-2">
-                    <Mail className="h-4 w-4" />
-                    Resend Verification Email
-                  </div>
-                )}
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => router.push("/register")}
-                className="w-full"
-              >
-                Back to Registration
-              </Button>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+            {status === "success" && (
+              <div className="text-center space-y-4">
+                <p className="text-sm text-slate-600">
+                  Redirecting to login page in 3 seconds...
+                </p>
+                <Button
+                  onClick={() => router.push("/login")}
+                  className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-none shadow-lg hover:shadow-xl transition-all duration-200 py-3 text-base font-medium"
+                >
+                  Go to Login
+                </Button>
+              </div>
+            )}
+
+            {status === "error" && (
+              <div className="space-y-4">
+                <Button
+                  onClick={handleResendVerification}
+                  disabled={isResending || !email}
+                  className="w-full bg-slate-100 hover:bg-slate-200 text-slate-900 border-none shadow-sm transition-all duration-200 py-3 text-base font-medium mb-3"
+                >
+                  {isResending ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Sending...
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center gap-2">
+                      <Mail className="h-4 w-4" />
+                      Resend Verification Email
+                    </div>
+                  )}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => router.push("/register")}
+                  className="w-full text-slate-600 hover:text-slate-900 hover:bg-slate-50 border-slate-200 transition-colors py-3"
+                >
+                  Back to Registration
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      </main>
     </div>
   );
 }

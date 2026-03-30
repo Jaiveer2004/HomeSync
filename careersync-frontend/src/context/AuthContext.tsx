@@ -8,7 +8,8 @@ interface User {
   fullName: string,
   email: string,
   role: string,
-  twoFactorEnabled?: boolean
+  twoFactorEnabled?: boolean,
+  profilePicture?: string
 }
 
 // Define the shape of the context's value
